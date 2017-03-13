@@ -12,12 +12,6 @@
 
 #import "YMSPhotoPickerTheme.h"
 
-static const CGFloat YMSHightedAnimationDuration = 0.15;
-static const CGFloat YMSUnhightedAnimationDuration = 0.4;
-static const CGFloat YMSHightedAnimationTransformScale = 0.9;
-static const CGFloat YMSUnhightedAnimationSpringDamping = 0.5;
-static const CGFloat YMSUnhightedAnimationSpringVelocity = 6.0;
-
 @interface YMSPhotoCell()
 
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -47,7 +41,7 @@ static const CGFloat YMSUnhightedAnimationSpringVelocity = 6.0;
     self.selectionOrderLabel.textColor = [YMSPhotoPickerTheme sharedInstance].orderLabelTextColor;
     self.selectionOrderLabel.font = [YMSPhotoPickerTheme sharedInstance].selectionOrderLabelFont;
 
-    self.selectionVeil.layer.borderWidth = 4.0;
+    self.selectionVeil.layer.borderWidth = 3.0;
 
     self.selectionOrderLabel.backgroundColor = [YMSPhotoPickerTheme sharedInstance].orderTintColor;
     self.selectionVeil.layer.borderColor = [YMSPhotoPickerTheme sharedInstance].orderTintColor.CGColor;
@@ -108,19 +102,19 @@ static const CGFloat YMSUnhightedAnimationSpringVelocity = 6.0;
 
 - (void)animateHighlight:(BOOL)highlighted
 {
-    if (highlighted) {
-        self.animateHighlight = YES;
-        [UIView animateWithDuration:YMSHightedAnimationDuration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.transform = CGAffineTransformMakeScale(YMSHightedAnimationTransformScale, YMSHightedAnimationTransformScale);
-        } completion:^(BOOL finished) {
-            self.animateHighlight = NO;
-        }];
-    }
-    else {
-        [UIView animateWithDuration:YMSUnhightedAnimationDuration delay:self.isAnimatingHighlight? YMSHightedAnimationDuration: 0 usingSpringWithDamping:YMSUnhightedAnimationSpringDamping initialSpringVelocity:YMSUnhightedAnimationSpringVelocity options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.transform = CGAffineTransformIdentity;
-        } completion:nil];
-    }
+//    if (highlighted) {
+//        self.animateHighlight = YES;
+//        [UIView animateWithDuration:YMSHightedAnimationDuration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+//            self.transform = CGAffineTransformMakeScale(YMSHightedAnimationTransformScale, YMSHightedAnimationTransformScale);
+//        } completion:^(BOOL finished) {
+//            self.animateHighlight = NO;
+//        }];
+//    }
+//    else {
+//        [UIView animateWithDuration:YMSUnhightedAnimationDuration delay:self.isAnimatingHighlight? YMSHightedAnimationDuration: 0 usingSpringWithDamping:YMSUnhightedAnimationSpringDamping initialSpringVelocity:YMSUnhightedAnimationSpringVelocity options:UIViewAnimationOptionAllowUserInteraction animations:^{
+//            self.transform = CGAffineTransformIdentity;
+//        } completion:nil];
+//    }
 }
 
 #pragma mark - Privates

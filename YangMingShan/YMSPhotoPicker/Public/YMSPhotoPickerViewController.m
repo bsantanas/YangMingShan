@@ -19,7 +19,7 @@
 
 static NSString * const YMSCameraCellNibName = @"YMSCameraCell";
 static NSString * const YMSPhotoCellNibName = @"YMSPhotoCell";
-static const NSUInteger YMSNumberOfPhotoColumns = 3;
+static const NSUInteger YMSNumberOfPhotoColumns = 4;
 static const CGFloat YMSNavigationBarMaxTopSpace = 44.0;
 static const CGFloat YMSNavigationBarOriginalTopSpace = 0.0;
 static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
