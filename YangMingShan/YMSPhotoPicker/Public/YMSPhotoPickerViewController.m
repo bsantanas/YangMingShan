@@ -16,6 +16,7 @@
 #import "YMSCameraCell.h"
 #import "YMSPhotoCell.h"
 #import "YMSSinglePhotoViewController.h"
+#import "BTNavigationDrowpdownMenu-swift.h"
 
 static NSString * const YMSCameraCellNibName = @"YMSCameraCell";
 static NSString * const YMSPhotoCellNibName = @"YMSPhotoCell";
@@ -86,8 +87,13 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
 
     [self fetchCollections];
 
+    UIFont *font = self.theme.barButtonsFont;
     UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
-    navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss:)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss:)];
+    [cancelItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           font, NSFontAttributeName,
+                                           nil] forState:UIControlStateNormal];
+    navigationItem.leftBarButtonItem = cancelItem;
 
     if (self.allowsMultipleSelection) {
         // Add done button for multiple selections
@@ -101,9 +107,11 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
                                            blue:75.0/255
                                           alpha:0.5];
         [self.doneItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                            orange, NSForegroundColorAttributeName,
+                                               font, NSFontAttributeName,
+                                               orange, NSForegroundColorAttributeName,
                                             nil] forState:UIControlStateNormal];
         [self.doneItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                               font, NSFontAttributeName,
                                                lightOrange, NSForegroundColorAttributeName,
                                                nil] forState:UIControlStateDisabled];
 
@@ -453,10 +461,11 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
     self.currentCollectionItem = collectionItem;
     PHCollection *photoCollection = self.currentCollectionItem[@"collection"];
     
+#warning asdf!!
     UIButton *albumButton = [UIButton buttonWithType:UIButtonTypeSystem];
     albumButton.tintColor = self.theme.titleLabelTextColor;
     albumButton.titleLabel.font = self.theme.titleLabelFont;
-    [albumButton addTarget:self action:@selector(presentAlbumPickerView:) forControlEvents:UIControlEventTouchUpInside];
+//    [albumButton addTarget:self action:@selector(presentAlbumPickerView:) forControlEvents:UIControlEventTouchUpInside];
     [albumButton setTitle:photoCollection.localizedTitle forState:UIControlStateNormal];
     UIImage *arrowDownImage = [UIImage imageNamed:@"PMIconSpinnerDropdown" inBundle:[NSBundle bundleForClass:self.class] compatibleWithTraitCollection:nil];
     

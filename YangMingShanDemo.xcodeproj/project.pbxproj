@@ -60,6 +60,7 @@
 		519140DF1D05571A002B4C5B /* YMSPhotoPickerAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51F2EEE81CEC4D5F006DFC4B /* YMSPhotoPickerAssets.xcassets */; };
 		51F2EEE91CEC4D5F006DFC4B /* YMSPhotoPickerAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51F2EEE81CEC4D5F006DFC4B /* YMSPhotoPickerAssets.xcassets */; };
 		51FF32391D129D020029197B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51FF32291D129D020029197B /* Assets.xcassets */; };
+		64C326DD1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C326DC1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		51F2EEE81CEC4D5F006DFC4B /* YMSPhotoPickerAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YMSPhotoPickerAssets.xcassets; sourceTree = "<group>"; };
 		51FF32291D129D020029197B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51FF322B1D129D020029197B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		64C326DC1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTNavigationDropdownMenu.swift; path = PlacemarkerAdditions/BTNavigationDropdownMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +270,7 @@
 		5171AD1D1CE9B2DC00B72748 /* YangMingShan */ = {
 			isa = PBXGroup;
 			children = (
+				64C326D61E7999DB0042DB5D /* Dropdown Menu */,
 				5171AD1E1CE9B2F100B72748 /* YMSPhotoPicker */,
 			);
 			name = YangMingShan;
@@ -326,6 +329,15 @@
 				51FF322A1D129D020029197B /* LaunchScreen.storyboard */,
 			);
 			path = YangMingShanDemo;
+			sourceTree = "<group>";
+		};
+		64C326D61E7999DB0042DB5D /* Dropdown Menu */ = {
+			isa = PBXGroup;
+			children = (
+				64C326DC1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift */,
+			);
+			name = "Dropdown Menu";
+			path = YangMingShan/YMSPhotoPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,7 +426,7 @@
 					5171ACE61CE9A49B00B72748 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = P4486LXQ42;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					5171ACFF1CE9A49C00B72748 = {
@@ -513,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				511BC60F1D13B2C400738FD4 /* DemoImageViewCell.m in Sources */,
+				64C326DD1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift in Sources */,
 				5130732E1D1B8D9000C98705 /* UIScrollView+YMSAdditions.m in Sources */,
 				513073361D1B8D9000C98705 /* YMSPhotoCell.m in Sources */,
 				511BC6051D13B27400738FD4 /* AppDelegate.m in Sources */,
@@ -701,8 +714,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P4486LXQ42;
 				INFOPLIST_FILE = "$(SRCROOT)/YangMingShanDemo/ObjC/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -710,6 +725,8 @@
 				PRODUCT_NAME = YangMingShanDemo;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "YangMingShan/YMSPhotoPicker/YangMingShanDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -718,8 +735,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P4486LXQ42;
 				INFOPLIST_FILE = "$(SRCROOT)/YangMingShanDemo/ObjC/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -727,6 +746,7 @@
 				PRODUCT_NAME = YangMingShanDemo;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "YangMingShan/YMSPhotoPicker/YangMingShanDemo-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -734,6 +754,7 @@
 		5171AD181CE9A49C00B72748 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = YangMingShanDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -747,6 +768,7 @@
 		5171AD191CE9A49C00B72748 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = YangMingShanDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -760,6 +782,7 @@
 		5171AD1B1CE9A49C00B72748 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = YangMingShanDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.YangMingShanDemoUITests;
@@ -771,6 +794,7 @@
 		5171AD1C1CE9A49C00B72748 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = YangMingShanDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.YangMingShanDemoUITests;
@@ -784,6 +808,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P4486LXQ42;
 				INFOPLIST_FILE = "$(SRCROOT)/YangMingShanDemo/Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -800,6 +825,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P4486LXQ42;
 				INFOPLIST_FILE = "$(SRCROOT)/YangMingShanDemo/Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
