@@ -16,7 +16,7 @@
 #import "YMSCameraCell.h"
 #import "YMSPhotoCell.h"
 #import "YMSSinglePhotoViewController.h"
-#import "BTNavigationDrowpdownMenu-swift.h"
+#import "MKDropdownMenu.h"
 
 static NSString * const YMSCameraCellNibName = @"YMSCameraCell";
 static NSString * const YMSPhotoCellNibName = @"YMSPhotoCell";
@@ -25,8 +25,9 @@ static const CGFloat YMSNavigationBarMaxTopSpace = 44.0;
 static const CGFloat YMSNavigationBarOriginalTopSpace = 0.0;
 static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
 
-@interface YMSPhotoPickerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver>
+@interface YMSPhotoPickerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver,MKDropdownMenuDataSource, MKDropdownMenuDelegate>
 
+@property (strong, nonatomic) MKDropdownMenu *navBarMenu;
 @property (nonatomic, weak) IBOutlet UINavigationBar *navigationBar;
 @property (nonatomic, weak) IBOutlet UIView *navigationBarBackgroundView;
 @property (nonatomic, weak) IBOutlet UICollectionView *photoCollectionView;
@@ -142,6 +143,7 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.navBarMenu closeAllComponentsAnimated:NO];
     [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
 }
 
@@ -462,6 +464,40 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
     PHCollection *photoCollection = self.currentCollectionItem[@"collection"];
     
 #warning asdf!!
+    
+    self.navBarMenu = [[MKDropdownMenu alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    self.navBarMenu.dataSource = self;
+    self.navBarMenu.delegate = self;
+    
+    // Make background light instead of dark when presenting the dropdown
+    self.navBarMenu.backgroundDimmingOpacity = -0.67;
+    
+    // Set custom disclosure indicator image
+    UIImage *indicator = [UIImage imageNamed:@"indicator"];
+    self.navBarMenu.disclosureIndicatorImage = indicator;
+    
+    // Offset the arrow to align with the disclosure indicator
+    self.navBarMenu.spacerViewOffset = UIOffsetMake(self.navBarMenu.bounds.size.width/2 - indicator.size.width/2 - 8, 1);
+    
+    // Hide top row separator to blend with the arrow
+    self.navBarMenu.dropdownShowsTopRowSeparator = NO;
+    
+    self.navBarMenu.dropdownBouncesScroll = NO;
+    
+    self.navBarMenu.rowSeparatorColor = [UIColor colorWithWhite:1.0 alpha:0.2];
+    self.navBarMenu.rowTextAlignment = NSTextAlignmentCenter;
+    
+    // Round all corners (by default only bottom corners are rounded)
+    self.navBarMenu.dropdownRoundedCorners = UIRectCornerAllCorners;
+    
+    // Let the dropdown take the whole width of the screen with 10pt insets
+    self.navBarMenu.useFullScreenWidth = YES;
+    self.navBarMenu.fullScreenInsetLeft = 10;
+    self.navBarMenu.fullScreenInsetRight = 10;
+    
+    // Add the dropdown menu to navigation bar
+    [self.navigationBar.items firstObject].titleView = self.navBarMenu;
+    
     UIButton *albumButton = [UIButton buttonWithType:UIButtonTypeSystem];
     albumButton.tintColor = self.theme.titleLabelTextColor;
     albumButton.titleLabel.font = self.theme.titleLabelFont;
@@ -476,7 +512,7 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
     // width + 10 for the space between text and image
     albumButton.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(albumButton.bounds) + 10, CGRectGetHeight(albumButton.bounds));
 
-    [self.navigationBar.items firstObject].titleView = albumButton;
+    //[self.navigationBar.items firstObject].titleView = albumButton;
 
     [self.photoCollectionView reloadData];
     [self refreshPhotoSelection];
@@ -776,6 +812,54 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
             [self.view layoutIfNeeded];
         }];
     }
+}
+
+#pragma mark - MKDropdownMenuDataSource
+
+- (NSInteger)numberOfComponentsInDropdownMenu:(MKDropdownMenu *)dropdownMenu {
+    return 1;
+}
+
+- (NSInteger)dropdownMenu:(MKDropdownMenu *)dropdownMenu numberOfRowsInComponent:(NSInteger)component {
+    return self.collectionItems.count;
+}
+
+#pragma mark - MKDropdownMenuDelegate
+
+- (CGFloat)dropdownMenu:(MKDropdownMenu *)dropdownMenu rowHeightForComponent:(NSInteger)component {
+    return 60;
+}
+
+- (NSAttributedString *)dropdownMenu:(MKDropdownMenu *)dropdownMenu attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    
+    NSDictionary *collection = self.collectionItems[row];
+    PHCollection *photoCollection = collection[@"collection"];
+    NSMutableAttributedString *string =
+    [[NSMutableAttributedString alloc] initWithString: photoCollection.localizedTitle
+                                           attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:20 weight:UIFontWeightLight]}];
+    return string;
+}
+
+- (UIColor *)dropdownMenu:(MKDropdownMenu *)dropdownMenu backgroundColorForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [UIColor whiteColor];
+}
+
+- (UIColor *)dropdownMenu:(MKDropdownMenu *)dropdownMenu backgroundColorForHighlightedRowsInComponent:(NSInteger)component {
+    return [UIColor colorWithWhite:0.0 alpha:0.5];
+}
+
+
+- (void)dropdownMenu:(MKDropdownMenu *)dropdownMenu didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+//    NSString *colorString = self.colors[row];
+//    self.textLabel.text = colorString;
+//    
+//    UIColor *color = UIColorWithHexString(colorString);
+//    self.view.backgroundColor = color;
+//    self.childViewController.shapeView.strokeColor = color;
+//    
+//    delay(0.15, ^{
+//        [dropdownMenu closeAllComponentsAnimated:YES];
+//    });
 }
 
 @end

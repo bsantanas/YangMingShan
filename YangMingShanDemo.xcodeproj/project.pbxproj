@@ -60,7 +60,8 @@
 		519140DF1D05571A002B4C5B /* YMSPhotoPickerAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51F2EEE81CEC4D5F006DFC4B /* YMSPhotoPickerAssets.xcassets */; };
 		51F2EEE91CEC4D5F006DFC4B /* YMSPhotoPickerAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51F2EEE81CEC4D5F006DFC4B /* YMSPhotoPickerAssets.xcassets */; };
 		51FF32391D129D020029197B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51FF32291D129D020029197B /* Assets.xcassets */; };
-		64C326DD1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C326DC1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift */; };
+		641D66EC1E79DA43002E9023 /* MKDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C326EB1E79A6F40042DB5D /* MKDropdownMenu.m */; };
+		64C326EC1E79A6F40042DB5D /* MKDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C326EB1E79A6F40042DB5D /* MKDropdownMenu.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,7 +139,8 @@
 		51F2EEE81CEC4D5F006DFC4B /* YMSPhotoPickerAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YMSPhotoPickerAssets.xcassets; sourceTree = "<group>"; };
 		51FF32291D129D020029197B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51FF322B1D129D020029197B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		64C326DC1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTNavigationDropdownMenu.swift; path = PlacemarkerAdditions/BTNavigationDropdownMenu.swift; sourceTree = "<group>"; };
+		64C326EA1E79A6F40042DB5D /* MKDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKDropdownMenu.h; path = PlacemarkerAdditions/MKDropdownMenu.h; sourceTree = "<group>"; };
+		64C326EB1E79A6F40042DB5D /* MKDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKDropdownMenu.m; path = PlacemarkerAdditions/MKDropdownMenu.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,7 +336,8 @@
 		64C326D61E7999DB0042DB5D /* Dropdown Menu */ = {
 			isa = PBXGroup;
 			children = (
-				64C326DC1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift */,
+				64C326EA1E79A6F40042DB5D /* MKDropdownMenu.h */,
+				64C326EB1E79A6F40042DB5D /* MKDropdownMenu.m */,
 			);
 			name = "Dropdown Menu";
 			path = YangMingShan/YMSPhotoPicker;
@@ -525,11 +528,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				511BC60F1D13B2C400738FD4 /* DemoImageViewCell.m in Sources */,
-				64C326DD1E799F3C0042DB5D /* BTNavigationDropdownMenu.swift in Sources */,
 				5130732E1D1B8D9000C98705 /* UIScrollView+YMSAdditions.m in Sources */,
 				513073361D1B8D9000C98705 /* YMSPhotoCell.m in Sources */,
 				511BC6051D13B27400738FD4 /* AppDelegate.m in Sources */,
 				511BC6101D13B2C400738FD4 /* DemoPhotoViewController.m in Sources */,
+				64C326EC1E79A6F40042DB5D /* MKDropdownMenu.m in Sources */,
 				5130732F1D1B8D9000C98705 /* UITableViewCell+YMSConfig.m in Sources */,
 				513073381D1B8D9000C98705 /* YMSSinglePhotoViewController.m in Sources */,
 				511BC6201D13B39E00738FD4 /* main.m in Sources */,
@@ -571,6 +574,7 @@
 				51687A261D335D080071643B /* YMSPhotoPickerTheme.m in Sources */,
 				51687A291D335D080071643B /* YMSAlbumPickerViewController.m in Sources */,
 				51687A271D335D080071643B /* YMSAlbumCell.m in Sources */,
+				641D66EC1E79DA43002E9023 /* MKDropdownMenu.m in Sources */,
 				511BC61B1D13B33D00738FD4 /* DemoImageViewCell.swift in Sources */,
 				51687A2F1D335D080071643B /* YMSSinglePhotoViewController.m in Sources */,
 				51687A2B1D335D080071643B /* YMSCameraCell.m in Sources */,
@@ -717,7 +721,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = P4486LXQ42;
 				INFOPLIST_FILE = "$(SRCROOT)/YangMingShanDemo/ObjC/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -738,7 +742,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = P4486LXQ42;
 				INFOPLIST_FILE = "$(SRCROOT)/YangMingShanDemo/ObjC/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -754,7 +758,6 @@
 		5171AD181CE9A49C00B72748 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = YangMingShanDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -768,7 +771,6 @@
 		5171AD191CE9A49C00B72748 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = YangMingShanDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -782,7 +784,6 @@
 		5171AD1B1CE9A49C00B72748 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = YangMingShanDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.YangMingShanDemoUITests;
@@ -794,7 +795,6 @@
 		5171AD1C1CE9A49C00B72748 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = YangMingShanDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.YangMingShanDemoUITests;
@@ -808,7 +808,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = P4486LXQ42;
 				INFOPLIST_FILE = "$(SRCROOT)/YangMingShanDemo/Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -825,7 +825,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = P4486LXQ42;
 				INFOPLIST_FILE = "$(SRCROOT)/YangMingShanDemo/Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
