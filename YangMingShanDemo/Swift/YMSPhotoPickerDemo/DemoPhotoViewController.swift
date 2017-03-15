@@ -25,6 +25,7 @@ class DemoPhotoViewController: UIViewController, YMSPhotoPickerViewControllerDel
             let calibri = UIFont.boldSystemFont(ofSize: 16);
             pickerViewController.theme.titleLabelFont = calibri
             pickerViewController.theme.barButtonsFont = calibri
+//            pickerViewController.theme.albumOptionFont = calibri
             pickerViewController.theme.titleLabelTextColor = .black
             pickerViewController.theme.navigationBarBackgroundColor = .white
             pickerViewController.theme.tintColor = UIColor.black

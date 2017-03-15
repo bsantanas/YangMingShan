@@ -76,6 +76,12 @@
 @property (nonatomic, strong) UIFont *barButtonsFont;
 
 /**
+ * @brief Describe a specify UIFont that you want to apply on navigation bar buttons
+ *
+ */
+@property (nonatomic, strong) UIFont *albumOptionFont;
+
+/**
  * @brief Describe a specify UIFont that you want to apply to the table view showing album localized name.
  *
  */

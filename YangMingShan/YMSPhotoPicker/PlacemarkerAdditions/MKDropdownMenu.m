@@ -418,8 +418,8 @@ static UIImage *disclosureIndicatorImage = nil;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = kDefaultRowHeight;
-    self.tableView.layoutMargins = UIEdgeInsetsZero;
-    self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.layoutMargins = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorColor = [UIColor mk_defaultSeparatorColor];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -762,10 +762,6 @@ static UIImage *disclosureIndicatorImage = nil;
     cell.accessoryView = [self.delegate accessoryViewForRow:indexPath.row];
     
     cell.textLabel.textAlignment = self.textAlignment;
-    
-    cell.preservesSuperviewLayoutMargins = NO;
-    cell.layoutMargins = UIEdgeInsetsZero;
-    cell.separatorInset = UIEdgeInsetsZero;
     
     return cell;
 }

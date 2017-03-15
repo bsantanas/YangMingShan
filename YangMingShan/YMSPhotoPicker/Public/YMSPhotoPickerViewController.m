@@ -345,23 +345,6 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
     }
 }
 
-- (IBAction)presentAlbumPickerView:(id)sender
-{
-    YMSAlbumPickerViewController *albumPickerViewController = [[YMSAlbumPickerViewController alloc] initWithCollectionItems:self.collectionItems selectedCollectionItem:self.currentCollectionItem dismissalHandler:^(NSDictionary *selectedCollectionItem) {
-        if (![self.currentCollectionItem isEqual:selectedCollectionItem]) {
-            [self updateViewWithCollectionItem:selectedCollectionItem];
-        }
-        else {
-            // If collection view doesn't update, camera won't start to run
-            if (![self.session isRunning]) {
-                [self.session startRunning];
-            }
-        }
-    }];
-    albumPickerViewController.view.tintColor = self.theme.tintColor;
-
-    [self presentViewController:albumPickerViewController animated:YES completion:nil];
-}
 
 - (IBAction)finishPickingPhotos:(id)sender
 {
@@ -473,47 +456,28 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
     self.navBarMenu.backgroundDimmingOpacity = -0.67;
     
     // Set custom disclosure indicator image
-    UIImage *indicator = [UIImage imageNamed:@"indicator"];
+    UIImage *indicator = [UIImage imageNamed:@"PMIconSpinnerDropdown"];
     self.navBarMenu.disclosureIndicatorImage = indicator;
     
     // Offset the arrow to align with the disclosure indicator
     self.navBarMenu.spacerViewOffset = UIOffsetMake(self.navBarMenu.bounds.size.width/2 - indicator.size.width/2 - 8, 1);
     
-    // Hide top row separator to blend with the arrow
-    self.navBarMenu.dropdownShowsTopRowSeparator = NO;
-    
-    self.navBarMenu.dropdownBouncesScroll = NO;
-    
-    self.navBarMenu.rowSeparatorColor = [UIColor colorWithWhite:1.0 alpha:0.2];
-    self.navBarMenu.rowTextAlignment = NSTextAlignmentCenter;
+    self.navBarMenu.rowSeparatorColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+    self.navBarMenu.rowTextAlignment = NSTextAlignmentLeft;
     
     // Round all corners (by default only bottom corners are rounded)
     self.navBarMenu.dropdownRoundedCorners = UIRectCornerAllCorners;
     
     // Let the dropdown take the whole width of the screen with 10pt insets
     self.navBarMenu.useFullScreenWidth = YES;
-    self.navBarMenu.fullScreenInsetLeft = 10;
-    self.navBarMenu.fullScreenInsetRight = 10;
     
     // Add the dropdown menu to navigation bar
     [self.navigationBar.items firstObject].titleView = self.navBarMenu;
     
     UIButton *albumButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    albumButton.tintColor = self.theme.titleLabelTextColor;
-    albumButton.titleLabel.font = self.theme.titleLabelFont;
 //    [albumButton addTarget:self action:@selector(presentAlbumPickerView:) forControlEvents:UIControlEventTouchUpInside];
     [albumButton setTitle:photoCollection.localizedTitle forState:UIControlStateNormal];
-    UIImage *arrowDownImage = [UIImage imageNamed:@"PMIconSpinnerDropdown" inBundle:[NSBundle bundleForClass:self.class] compatibleWithTraitCollection:nil];
     
-    [albumButton setImage:arrowDownImage forState:UIControlStateNormal];
-    [albumButton sizeToFit];
-    albumButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, albumButton.frame.size.width - (arrowDownImage.size.width) + 10, 0.0, 0.0);
-    albumButton.titleEdgeInsets = UIEdgeInsetsMake(0.0, -arrowDownImage.size.width, 0.0, arrowDownImage.size.width + 10);
-    // width + 10 for the space between text and image
-    albumButton.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(albumButton.bounds) + 10, CGRectGetHeight(albumButton.bounds));
-
-    //[self.navigationBar.items firstObject].titleView = albumButton;
-
     [self.photoCollectionView reloadData];
     [self refreshPhotoSelection];
 }
@@ -827,7 +791,25 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
 #pragma mark - MKDropdownMenuDelegate
 
 - (CGFloat)dropdownMenu:(MKDropdownMenu *)dropdownMenu rowHeightForComponent:(NSInteger)component {
-    return 60;
+    return 50;
+}
+
+- (NSAttributedString *)dropdownMenu:(MKDropdownMenu *)dropdownMenu attributedTitleForComponent:(NSInteger)component {
+    NSDictionary *collection = self.currentCollectionItem;
+    PHCollection *photoCollection = collection[@"collection"];
+    NSMutableAttributedString *string =
+    [[NSMutableAttributedString alloc] initWithString: photoCollection.localizedTitle
+                                           attributes:@{NSFontAttributeName: self.theme.titleLabelFont}];
+    return string;
+}
+
+-(NSAttributedString *)dropdownMenu:(MKDropdownMenu *)dropdownMenu attributedTitleForSelectedComponent:(NSInteger)component {
+    NSDictionary *collection = self.currentCollectionItem;
+    PHCollection *photoCollection = collection[@"collection"];
+    NSMutableAttributedString *string =
+    [[NSMutableAttributedString alloc] initWithString: photoCollection.localizedTitle
+                                           attributes:@{NSFontAttributeName: self.theme.titleLabelFont}];
+    return string;
 }
 
 - (NSAttributedString *)dropdownMenu:(MKDropdownMenu *)dropdownMenu attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
@@ -836,7 +818,7 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
     PHCollection *photoCollection = collection[@"collection"];
     NSMutableAttributedString *string =
     [[NSMutableAttributedString alloc] initWithString: photoCollection.localizedTitle
-                                           attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:20 weight:UIFontWeightLight]}];
+                                           attributes:@{NSFontAttributeName: self.theme.albumOptionFont}];
     return string;
 }
 
@@ -850,16 +832,22 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
 
 
 - (void)dropdownMenu:(MKDropdownMenu *)dropdownMenu didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-//    NSString *colorString = self.colors[row];
-//    self.textLabel.text = colorString;
-//    
-//    UIColor *color = UIColorWithHexString(colorString);
-//    self.view.backgroundColor = color;
-//    self.childViewController.shapeView.strokeColor = color;
-//    
-//    delay(0.15, ^{
-//        [dropdownMenu closeAllComponentsAnimated:YES];
-//    });
+    NSDictionary *selectedCollectionItem = self.collectionItems[row];
+    if (![self.currentCollectionItem isEqual:selectedCollectionItem]) {
+        [self updateViewWithCollectionItem:selectedCollectionItem];
+    }
+    else {
+        // If collection view doesn't update, camera won't start to run
+        if (![self.session isRunning]) {
+            [self.session startRunning];
+        }
+    }
+    
+    double delayInSeconds = 0.15;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [dropdownMenu closeAllComponentsAnimated:YES];
+    });
 }
 
 @end
