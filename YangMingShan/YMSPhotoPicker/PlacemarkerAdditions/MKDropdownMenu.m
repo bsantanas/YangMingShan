@@ -113,13 +113,13 @@ static UIImage *disclosureIndicatorImage = nil;
     _disclosureIndicatorView = [UIImageView new];
     _disclosureIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_disclosureIndicatorView];
-    [self addConstraints:@[[NSLayoutConstraint constraintWithItem:self
+    [self addConstraints:@[[NSLayoutConstraint constraintWithItem:self.titleLabel
                                                         attribute:NSLayoutAttributeTrailing
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:_disclosureIndicatorView
-                                                        attribute:NSLayoutAttributeTrailing
+                                                        attribute:NSLayoutAttributeLeading
                                                        multiplier:1.0
-                                                         constant:8],
+                                                         constant:-8],
                            [NSLayoutConstraint constraintWithItem:_disclosureIndicatorView
                                                         attribute:NSLayoutAttributeCenterY
                                                         relatedBy:NSLayoutRelationEqual
