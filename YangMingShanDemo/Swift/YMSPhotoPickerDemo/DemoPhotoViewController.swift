@@ -22,7 +22,8 @@ class DemoPhotoViewController: UIViewController, YMSPhotoPickerViewControllerDel
 
             let darkOrange = UIColor.init(red:255/255, green:115/255, blue:75/255, alpha:1)
             let lightOrange = UIColor.init(red:255/255, green:115/255, blue:75/255, alpha:0.2)
-            
+            let calibri = UIFont.boldSystemFont(ofSize: 16);
+            pickerViewController.theme.titleLabelFont = calibri
             pickerViewController.theme.titleLabelTextColor = .black
             pickerViewController.theme.navigationBarBackgroundColor = .white
             pickerViewController.theme.tintColor = UIColor.black
