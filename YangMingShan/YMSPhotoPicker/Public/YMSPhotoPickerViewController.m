@@ -91,7 +91,8 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
 
     if (self.allowsMultipleSelection) {
         // Add done button for multiple selections
-        self.doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishPickingPhotos:)];
+        self.doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(finishPickingPhotos:)];
+        self.doneItem.possibleTitles = [NSSet setWithObjects:@"(99) Next", @"Next", nil];
         self.doneItem.enabled = NO;
         navigationItem.rightBarButtonItem = self.doneItem;
     }
@@ -246,6 +247,7 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
         PHFetchResult *fetchResult = self.currentCollectionItem[@"assets"];
         PHAsset *asset = fetchResult[indexPath.item-1];
         [self.selectedPhotos addObject:asset];
+        [self updateDoneButton];
         self.doneItem.enabled = YES;
     }
 }
@@ -285,6 +287,8 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
     }
 
     [self.selectedPhotos removeObject:asset];
+    
+    [self updateDoneButton];
     if (self.selectedPhotos.count == 0) {
         self.doneItem.enabled = NO;
     }
@@ -579,6 +583,17 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
     totalHorizontalSpacing = totalInteritemSpacing + sectionInset.left + sectionInset.right;
     size = (CGFloat)floor((arrangementLength - totalHorizontalSpacing) / numberOfPhotoColumnsInLandscape);
     self.cellLandscapeSize = CGSizeMake(size, size);
+}
+
+- (void) updateDoneButton {
+    [UIView setAnimationsEnabled:NO];
+    NSUInteger count = self.selectedPhotos.count;
+    if (count > 0) {
+        [self.doneItem setTitle:[NSString stringWithFormat:@"(%lu) Next",count]];
+    } else {
+        [self.doneItem setTitle:[NSString stringWithFormat:@"Next"]];
+    }
+    [UIView setAnimationsEnabled:YES];
 }
 
 #pragma mark - PHPhotoLibraryChangeObserver
