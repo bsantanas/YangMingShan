@@ -345,6 +345,23 @@ static const CGFloat YMSPhotoFetchScaleResizingRatio = 0.75;
     }
 }
 
+- (IBAction)presentAlbumPickerView:(id)sender
+{
+    YMSAlbumPickerViewController *albumPickerViewController = [[YMSAlbumPickerViewController alloc] initWithCollectionItems:self.collectionItems selectedCollectionItem:self.currentCollectionItem dismissalHandler:^(NSDictionary *selectedCollectionItem) {
+        if (![self.currentCollectionItem isEqual:selectedCollectionItem]) {
+            [self updateViewWithCollectionItem:selectedCollectionItem];
+        }
+        else {
+            // If collection view doesn't update, camera won't start to run
+            if (![self.session isRunning]) {
+                [self.session startRunning];
+            }
+        }
+    }];
+    albumPickerViewController.view.tintColor = self.theme.tintColor;
+
+    [self presentViewController:albumPickerViewController animated:YES completion:nil];
+}
 
 - (IBAction)finishPickingPhotos:(id)sender
 {
